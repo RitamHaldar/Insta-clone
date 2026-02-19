@@ -23,9 +23,9 @@ async function postcreatecontroler(req, res) {
         })
     }
 
-    const file = await imagekit({
-        file: await toFile(Buffer.from(req.body.buffer), "file"),
-        filename: "test",
+    const file = await imagekit.files.upload({
+        file: await toFile(Buffer.from(req.file.buffer), "file"),
+        fileName: "test",
         folder: "Instagram-clone-project"
     })
 
