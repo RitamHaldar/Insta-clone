@@ -7,21 +7,7 @@ const imagekit = new Imagekit({
 })
 async function postcreatecontroler(req, res) {
 
-    const token = req.cookies.Jwttoken;
-    let decodeddata = null;
-    if (!token) {
-        return res.status(401).json({
-            message: "Token not provided, Unauthorized access"
-        })
-    }
 
-    try {
-        decodeddata = jwt.verify(token, process.env.JWT_SECRET);
-    } catch {
-        return res.status(401).json({
-            message: "User not Authorized"
-        })
-    }
 
     const file = await imagekit.files.upload({
         file: await toFile(Buffer.from(req.file.buffer), "file"),
@@ -32,14 +18,46 @@ async function postcreatecontroler(req, res) {
     const post = await postmodel.create({
         caption: req.body.caption,
         imageurl: file.url,
-        user: decodeddata.id
+        user: req.user.id
     })
     res.status(201).json({
         message: "Post created Successfully",
         post
     })
 }
+async function getpostscontroler(req, res) {
+    const userid = req.user.id;
+    const posts = await postmodel.find({
+        user: userid
+    })
+    res.status(200).json({
+        message: "Posts fetched successfully",
+        posts
+    })
+}
+async function getpstdetailscontroler(req, res) {
 
+    const postId = req.params.postId;
+    const post = await postmodel.findById(postId);
+    if (!post) {
+        return res.status(404).json({
+            message: "Post not found"
+        })
+    }
+
+    const validuser = req.user.id === post.user.toString();
+    if (!validuser) {
+        return res.status(403).json({
+            message: "Forbidden Content"
+        })
+    }
+    res.status(200).json({
+        message: "Post Fetched Successfully",
+        post
+    })
+}
 module.exports = {
-    postcreatecontroler
+    postcreatecontroler,
+    getpostscontroler,
+    getpstdetailscontroler
 }
