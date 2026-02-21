@@ -1,7 +1,7 @@
 const postmodel = require("../models/posts.model");
-const jwt = require("jsonwebtoken");
 const Imagekit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
+const likesmodel = require("../models/likes.model");
 const imagekit = new Imagekit({
     privateKey: process.env.IMAGE_KIT_KEY
 })
@@ -56,8 +56,39 @@ async function getpstdetailscontroler(req, res) {
         post
     })
 }
+
+async function postlikescontroller(req, res) {
+    const postid = req.params.postId;
+    const user = req.user.username;
+
+    const postexists = await postmodel.findById(postid);
+    if (!postexists) {
+        return res.status(404).json({
+            message: "Post doesnot exists"
+        })
+    }
+    const alreadyliked = await likesmodel.findOne({
+        post: postid,
+        user: user
+    })
+    if (alreadyliked) {
+        await likesmodel.findByIdAndDelete(alreadyliked._id);
+        return res.status(201).json({
+            message: "Post unliked Successfully"
+        })
+    }
+    const liked = await likesmodel.create({
+        post: postid,
+        user: user
+    })
+    res.status(201).json({
+        message: "Post Liked successfully",
+        liked
+    })
+}
 module.exports = {
     postcreatecontroler,
     getpostscontroler,
-    getpstdetailscontroler
+    getpstdetailscontroler,
+    postlikescontroller
 }

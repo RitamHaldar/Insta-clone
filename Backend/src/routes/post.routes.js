@@ -6,5 +6,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 const identifyuser = require("../middlewares/post.middleware");
 postrouter.post("/", upload.single("test"), identifyuser, postcontrolers.postcreatecontroler);
 postrouter.get("/", identifyuser, postcontrolers.getpostscontroler);
-postrouter.get("/details/:postId", identifyuser, postcontrolers.getpstdetailscontroler)
+postrouter.get("/details/:postId", identifyuser, postcontrolers.getpstdetailscontroler);
+postrouter.post("/:postId", identifyuser, postcontrolers.postlikescontroller);
 module.exports = postrouter;
