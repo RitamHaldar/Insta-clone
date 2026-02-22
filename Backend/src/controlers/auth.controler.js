@@ -74,7 +74,17 @@ async function logincontroler(req, res) {
     })
 }
 
+async function getme(req, res) {
+    const userid = req.user.id;
+    const user = await usermodel.findById(userid);
+    res.status(200).json({
+        message: "user found successfully",
+        user
+    })
+}
+
 module.exports = {
     registercontroler,
-    logincontroler
+    logincontroler,
+    getme
 }
