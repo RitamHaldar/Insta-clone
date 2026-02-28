@@ -26,7 +26,7 @@ const Register = () => {
                     <input type="text" placeholder='Enter Username' onInput={(e) => { setusername(e.target.value) }} />
                     <input type="text" placeholder='Enter Email' onInput={(e) => { setemail(e.target.value) }} />
                     <input type="password" placeholder='Enter Password' onInput={(e) => { setpassword(e.target.value) }} />
-                    <button>Register</button>
+                    <button className='button primary-button'>Register</button>
                     <p>Already have an account? <Link>  login</Link></p>
                 </form>
             </div>

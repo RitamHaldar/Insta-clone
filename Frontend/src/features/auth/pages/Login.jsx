@@ -25,7 +25,7 @@ const Login = () => {
                 <form >
                     <input type="text" placeholder='Username' onInput={(e) => { setUsername(e.target.value) }} />
                     <input type="password" placeholder='Password' onInput={(e) => { setPassword(e.target.value) }} />
-                    <button type='submit' onClick={formsubmit}>Login</button>
+                    <button className='button primary-button' type='submit' onClick={formsubmit}>Login</button>
                     <p>Don't have an account?<Link>  register</Link></p>
                 </form>
             </div>
