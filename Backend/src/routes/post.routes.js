@@ -8,4 +8,5 @@ postrouter.post("/", upload.single("test"), identifyuser, postcontrolers.postcre
 postrouter.get("/", identifyuser, postcontrolers.getpostscontroler);
 postrouter.get("/details/:postId", identifyuser, postcontrolers.getpstdetailscontroler);
 postrouter.post("/:postId", identifyuser, postcontrolers.postlikescontroller);
+postrouter.get("/get-feed", identifyuser, postcontrolers.getfeedcontroller)
 module.exports = postrouter;

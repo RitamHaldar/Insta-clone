@@ -86,9 +86,18 @@ async function postlikescontroller(req, res) {
         liked
     })
 }
+async function getfeedcontroller(req, res) {
+    const feed = await postmodel.find().populate("user");
+
+    res.status(200).json({
+        message: "Posts fetched successfully",
+        posts: feed
+    })
+}
 module.exports = {
     postcreatecontroler,
     getpostscontroler,
     getpstdetailscontroler,
-    postlikescontroller
+    postlikescontroller,
+    getfeedcontroller
 }

@@ -46,7 +46,7 @@ async function logincontroler(req, res) {
             { username },
             { email }
         ]
-    })
+    }).select("+password")
     if (!UserAlreadyexists) {
         return res.status(404).json({
             message: "User not found"
