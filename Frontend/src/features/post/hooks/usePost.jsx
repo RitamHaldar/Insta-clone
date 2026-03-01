@@ -1,4 +1,4 @@
-import { getfeed } from '../services/post.api'
+import { createpost, getfeed, managelike } from '../services/post.api'
 import { useContext } from 'react'
 import { PostContext } from '../post.context'
 export const usePost = () => {
@@ -10,5 +10,15 @@ export const usePost = () => {
         setfeed(response.posts)
 
     }
-    return { loading, feed, post, getfeedhandler }
+    const createposthandler = async (profileimage, caption) => {
+        setloading(true);
+        const response = await createpost(profileimage, caption);
+        setloading(false)
+        setfeed([response.post, ...feed]);
+    }
+    const likehandler = async (postid) => {
+        await managelike(postid);
+        await getfeedhandler();
+    }
+    return { loading, feed, post, getfeedhandler, createposthandler, likehandler }
 }

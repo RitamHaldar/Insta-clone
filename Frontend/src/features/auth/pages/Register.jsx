@@ -14,12 +14,12 @@ const Register = () => {
         navigate("/");
     }
     if (loding) {
-        return <main>
+        return <main className='auth'>
             <h1>Loading.....</h1>
         </main>
     }
     return (
-        <main>
+        <main className='auth'>
             <div className='form-container'>
                 <h1>Register</h1>
                 <form onSubmit={formsubmit}>
