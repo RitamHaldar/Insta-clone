@@ -5,11 +5,12 @@ import FeedPage from './features/post/pages/FeedPage'
 import CreatePost from './features/post/pages/CreatePost'
 import FollowingPage from './features/post/pages/FollowingPage'
 import ProfilePage from './features/post/pages/ProfilePage'
+import ProtectedRoute from './features/auth/components/ProtectedRoute'
 
 export const routes = createBrowserRouter([
     {
         path: "/",
-        element: <FeedPage />
+        element: <ProtectedRoute><FeedPage /></ProtectedRoute>
     },
     {
         path: "/login",
@@ -21,14 +22,14 @@ export const routes = createBrowserRouter([
     },
     {
         path: "/create-post",
-        element: <CreatePost />
+        element: <ProtectedRoute><CreatePost /></ProtectedRoute>
     },
     {
         path: "/profile",
-        element: <ProfilePage />
+        element: <ProtectedRoute><ProfilePage /></ProtectedRoute>
     },
     {
         path: "/following",
-        element: <FollowingPage />
+        element: <ProtectedRoute><FollowingPage /></ProtectedRoute>
     }
 ])

@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import "../style/form.scss"
 import { useAuth } from '../hooks/useAuth'
+import ErrorAlert from '../../shared/components/ErrorAlert'
+import { useEffect } from 'react'
+
 const Register = () => {
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const [email, setemail] = useState("");
-    const { user, loading, register } = useAuth();
+    const { user, loading, error, register, clearError } = useAuth();
     const navigate = useNavigate();
     const formsubmit = async (e) => {
         e.preventDefault();
         await register(username, email, password);
-        navigate("/");
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate])
     if (loading) {
         return <main className='auth'>
             <h1>Loading.....</h1>
@@ -22,6 +29,7 @@ const Register = () => {
         <main className='auth'>
             <div className='form-container'>
                 <h1>Register</h1>
+                <ErrorAlert message={error} onClose={clearError} />
                 <form onSubmit={formsubmit}>
                     <div className="input-group">
                         <input type="text" placeholder='Username' onInput={(e) => { setusername(e.target.value) }} required />
