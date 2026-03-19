@@ -2,7 +2,7 @@ import axios from "axios";
 import { Form } from "react-router";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: "https://linksy-hfe8.onrender.com/api",
     withCredentials: true
 })
 
