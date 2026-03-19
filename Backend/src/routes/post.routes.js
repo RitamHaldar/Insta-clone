@@ -6,7 +6,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const identifyuser = require("../middlewares/post.middleware");
 postrouter.post("/", upload.single("test"), identifyuser, postcontrolers.postcreatecontroler);
 postrouter.get("/", identifyuser, postcontrolers.getpostscontroler);
-postrouter.get("/details/:postId", identifyuser, postcontrolers.getpstdetailscontroler);
+postrouter.delete("/:postId", identifyuser, postcontrolers.postdeletecontroler);
 postrouter.post("/:postId", identifyuser, postcontrolers.postlikescontroller);
 postrouter.get("/get-feed", identifyuser, postcontrolers.getfeedcontroller)
 module.exports = postrouter;

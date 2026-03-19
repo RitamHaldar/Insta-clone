@@ -5,14 +5,14 @@ import "../style/form.scss"
 const Login = () => {
     const [Username, setUsername] = useState("");
     const [Password, setPassword] = useState("");
-    const { user, loding, login, register } = useAuth();
+    const { user, loading, login } = useAuth();
     const navigate = useNavigate();
     const formsubmit = async (e) => {
         e.preventDefault();
         await login(Username, Password);
         navigate("/");
     }
-    if (loding) {
+    if (loading) {
         return <main className='auth'>
             <h1>Loading.....</h1>
         </main>
@@ -20,17 +20,19 @@ const Login = () => {
     return (
         <main className='auth'>
             <div className="form-container">
-
                 <h1>Login</h1>
-                <form >
-                    <input type="text" placeholder='Username' onInput={(e) => { setUsername(e.target.value) }} />
-                    <input type="password" placeholder='Password' onInput={(e) => { setPassword(e.target.value) }} />
-                    <button className='button primary-button' type='submit' onClick={formsubmit}>Login</button>
-                    <p>Don't have an account?<Link>  register</Link></p>
+                <form onSubmit={formsubmit}>
+                    <div className="input-group">
+                        <input type="text" placeholder='Username' onInput={(e) => { setUsername(e.target.value) }} required />
+                    </div>
+                    <div className="input-group">
+                        <input type="password" placeholder='Password' onInput={(e) => { setPassword(e.target.value) }} required />
+                    </div>
+                    <button className='button primary-button' type='submit'>Login</button>
+                    <p>Don't have an account? <Link to="/register">Register</Link></p>
                 </form>
             </div>
         </main>
-
     )
 }
 

@@ -1,26 +1,133 @@
 .createpostpage {
-    width: 100%;
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 
-    .createpostwrapper {
-        max-width: 450px;
-        width: 100%;
+    .create-header {
+        min-height: 60px;
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        color: white;
+        align-items: center;
+        padding: 0 2.5rem;
+        background: transparent;
+        border-bottom: 1px solid #e2e8f0;
+        
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+    }
+
+    .createpost-container {
+        max-width: 600px;
+        width: 100%;
+        margin: 3rem auto;
+        padding: 2.5rem;
+        background: #ffffff;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2rem;
+        }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 0.67rem;
+            gap: 1.5rem;
 
-            input {
-                padding: 0.4rem;
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+
+                label {
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: #475569;
+                }
+
+                input[type="text"], textarea {
+                    padding: 1rem;
+                    border-radius: 12px;
+                    border: 1px solid #e2e8f0;
+                    background-color: #f8fafc;
+                    color: #0f172a;
+                    font-size: 1rem;
+                    transition: all 0.2s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: #8b5cf6;
+                        background-color: #fff;
+                        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+                    }
+                }
+
+                .file-upload-box {
+                    border: 2px dashed #e2e8f0;
+                    border-radius: 12px;
+                    padding: 2rem;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    background-color: #f8fafc;
+
+                    &:hover {
+                        border-color: #8b5cf6;
+                        background-color: #f5f3ff;
+                    }
+
+                    input[type="file"] {
+                        display: block;
+                        width: 100%;
+                        font-size: 0.9rem;
+                        color: #64748b;
+                        
+                        &::-webkit-file-upload-button {
+                            padding: 0.5rem 1rem;
+                            border-radius: 8px;
+                            border: none;
+                            background-color: #8b5cf6;
+                            color: white;
+                            font-weight: 600;
+                            margin-right: 1rem;
+                            cursor: pointer;
+                            
+                            &:hover {
+                                background-color: #7c3aed;
+                            }
+                        }
+                    }
+                }
             }
 
+            .primary-button {
+                padding: 1rem;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                color: white;
+                font-weight: 600;
+                font-size: 1.1rem;
+                border: none;
+                cursor: pointer;
+                transition: transform 0.1s ease, box-shadow 0.2s ease;
+                margin-top: 1rem;
+
+                &:hover {
+                    box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
+                }
+
+                &:active {
+                    transform: scale(0.98);
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ followRoute.post("/follow/:username", identifyuser, followercontroller.followerc
 followRoute.post("/unfollow/:username", identifyuser, followercontroller.followerdeletehandler);
 
 followRoute.get("/follow/pending", identifyuser, followercontroller.followerpendingrecordscontrolerhandler);
+followRoute.get("/follow/outgoing", identifyuser, followercontroller.followeroutgoingrecordscontrolerhandler);
 
 followRoute.post("/follow/approve/:followid", identifyuser, followercontroller.followeracceptcontrolerhandler);
 

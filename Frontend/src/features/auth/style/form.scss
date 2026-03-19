@@ -4,32 +4,106 @@
     gap: $gap;
 }
 
-
 .auth {
     width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
     .form-container {
-        @include flex-column(0.75rem);
-        width: 350px;
-        color: white;
+        @include flex-column(1.5rem);
+        width: 400px;
+        background: #ffffff;
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
 
         form {
             width: 100%;
-            @include flex-column(0.75rem);
+            @include flex-column(1rem);
 
-            input {
-                padding: 0.5rem;
-                width: 100%;
-                border-radius: 1.5rem;
-                border: none;
+            .input-group {
+                @include flex-column(0.4rem);
+                
+                label {
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    color: #64748b;
+                    margin-left: 0.2rem;
+                }
             }
 
+            input {
+                padding: 0.8rem 1.2rem;
+                width: 100%;
+                border-radius: 12px;
+                border: 1px solid #e2e8f0;
+                background-color: #f1f5f9;
+                color: #0f172a;
+                font-size: 0.95rem;
+                transition: all 0.2s ease;
 
+                &::placeholder {
+                    color: #94a3b8;
+                }
 
+                &:focus {
+                    outline: none;
+                    border-color: #8b5cf6;
+                    background-color: #ffffff;
+                    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+                }
+            }
+
+            .primary-button {
+                margin-top: 0.5rem;
+                padding: 0.8rem;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                color: white;
+                font-weight: 600;
+                font-size: 1rem;
+                border: none;
+                cursor: pointer;
+                transition: transform 0.1s ease, box-shadow 0.2s ease;
+
+                &:hover {
+                    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+                }
+
+                &:active {
+                    transform: scale(0.98);
+                }
+            }
+
+            p {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #64748b;
+                margin-top: 1rem;
+
+                a {
+                    color: #8b5cf6;
+                    font-weight: 600;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
-
     }
 }

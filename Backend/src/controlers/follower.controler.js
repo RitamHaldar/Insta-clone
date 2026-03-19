@@ -8,7 +8,7 @@ async function followercontrolerhandler(req, res) {
             message: "You cannot Follow Yourshelf "
         })
     }
-    const followeexists = await usermodel.find({
+    const followeexists = await usermodel.findOne({
         username: followeeusername
     })
     if (!followeexists) {
@@ -59,20 +59,22 @@ async function followerdeletehandler(req, res) {
 
 async function followerpendingrecordscontrolerhandler(req, res) {
     const username = req.user.username;
-    const pendingfollowrequests = await followermodel.find({
-        followee: username
-    })
-    if (pendingfollowrequests.length == 0) {
-        return res.status(200).json({
-            message: "No pending requests"
-        })
-    }
-    res.status(200).json({
-        message: "Pending requests",
-        pendingfollowrequests
+    const pendingrequests = await followermodel.find({
+        followee: username,
+        status: "Pending"
     })
 
+    const records = await Promise.all(pendingrequests.map(async (req) => {
+        const user = await usermodel.findOne({ username: req.follower }, "username profileimage");
+        return { ...req.toObject(), follower_info: user };
+    }));
+
+    res.status(200).json({
+        message: records.length ? "Pending requests" : "No pending requests",
+        records
+    })
 }
+
 async function followeracceptcontrolerhandler(req, res) {
     const username = req.user.username;
     const followreq = req.params.followid;
@@ -112,14 +114,33 @@ async function followerrejectcontrolerhandler(req, res) {
         status: "Rejected"
     })
     res.status(201).json({
-        message: "Following request accepted",
+        message: "Following request rejected",
         updatedrequest
     })
 }
+
+async function followeroutgoingrecordscontrolerhandler(req, res) {
+    const username = req.user.username;
+    const outgoingrequests = await followermodel.find({
+        follower: username
+    })
+
+    const records = await Promise.all(outgoingrequests.map(async (req) => {
+        const user = await usermodel.findOne({ username: req.followee }, "username profileimage");
+        return { ...req.toObject(), followee_info: user };
+    }));
+
+    res.status(200).json({
+        message: records.length ? "Outgoing records" : "No records found",
+        records
+    })
+}
+
 module.exports = {
     followercontrolerhandler,
     followerdeletehandler,
     followerpendingrecordscontrolerhandler,
     followeracceptcontrolerhandler,
-    followerrejectcontrolerhandler
+    followerrejectcontrolerhandler,
+    followeroutgoingrecordscontrolerhandler
 }

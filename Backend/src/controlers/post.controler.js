@@ -35,7 +35,7 @@ async function getpostscontroler(req, res) {
         posts
     })
 }
-async function getpstdetailscontroler(req, res) {
+async function postdeletecontroler(req, res) {
 
     const postId = req.params.postId;
     const post = await postmodel.findById(postId);
@@ -51,9 +51,9 @@ async function getpstdetailscontroler(req, res) {
             message: "Forbidden Content"
         })
     }
+    await postmodel.findByIdAndDelete(postId);
     res.status(200).json({
-        message: "Post Fetched Successfully",
-        post
+        message: "Post Deleted Successfully",
     })
 }
 
@@ -105,7 +105,7 @@ async function getfeedcontroller(req, res) {
 module.exports = {
     postcreatecontroler,
     getpostscontroler,
-    getpstdetailscontroler,
+    postdeletecontroler,
     postlikescontroller,
     getfeedcontroller
 }
