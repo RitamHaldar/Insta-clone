@@ -10,7 +10,6 @@ const FeedPage = () => {
     const { loading, feed, post, getfeedhandler, likehandler, getOutgoingFollowsHandler } = usePost();
     const { user, getme } = useAuth();
     async function load() {
-        await getme();
         await getfeedhandler();
         await getOutgoingFollowsHandler();
     }

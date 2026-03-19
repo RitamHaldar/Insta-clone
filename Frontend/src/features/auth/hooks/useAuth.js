@@ -3,7 +3,7 @@ import { AuthContext } from "../auth.context";
 import { loginuser, registeruser, getmeuser } from "../services/auth.api";
 
 export const useAuth = () => {
-    const { user, setuser, loading, setloading, error, setError } = useContext(AuthContext);
+    const { user, setuser, loading, setloading, error, setError, getme } = useContext(AuthContext);
 
     const clearError = () => setError(null);
 
@@ -32,25 +32,6 @@ export const useAuth = () => {
             setloading(false);
         }
     }
-
-    const getme = async () => {
-        setloading(true);
-        try {
-            const response = await getmeuser();
-            if (response && response.user) {
-                setuser(response.user.username);
-            }
-        } catch (err) {
-            console.error("Auth check failed:", err.message);
-            setuser(null);
-        } finally {
-            setloading(false);
-        }
-    }
-
-    useEffect(() => {
-        getme();
-    }, [])
 
     return {
         user, loading, error, login, register, getme, clearError
